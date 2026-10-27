@@ -3,6 +3,9 @@
   "description": "Common types and utilities for Kottster",
   "version": "3.5.1",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "license": "Apache-2.0",
   "scripts": {
     "clean": "rimraf ./dist",
