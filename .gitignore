@@ -1,1 +1,4 @@
 .DS_Store
+
+# security scans (security/scan.sh)
+.security-reports/

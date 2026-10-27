@@ -1,0 +1,17 @@
+# Semgrep (security/scan.sh) — além do .gitignore
+node_modules/
+dist/
+build/
+out/
+.next/
+.expo/
+.yarn/
+coverage/
+tmp/
+temp/
+.security-reports/
+*.min.js
+*.map
+*.ipa
+*.aab
+*.jar

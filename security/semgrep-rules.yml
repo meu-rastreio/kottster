@@ -1,0 +1,38 @@
+# Regras próprias do Meu Rastreio. Rodam junto com p/default e p/secrets (security/scan.sh).
+rules:
+  - id: prisma-raw-unsafe-dynamic
+    languages: [typescript, javascript]
+    severity: ERROR
+    message: >-
+      $METHOD recebe SQL montado em tempo de execução. Use $queryRaw/$executeRaw com
+      template tagged (parâmetros vinculados) ou Prisma.sql, e nunca interpole entrada do usuário.
+    metadata:
+      category: security
+      cwe: ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command"]
+      owasp: ["A03:2021 - Injection"]
+      confidence: MEDIUM
+    patterns:
+      - pattern-either:
+          - pattern: $DB.$METHOD(`...${$X}...`, ...)
+          - pattern: $DB.$METHOD($A + $B, ...)
+          - pattern: $DB.$METHOD($SQL, ...)
+      - metavariable-regex:
+          metavariable: $METHOD
+          regex: ^\$(queryRawUnsafe|executeRawUnsafe)$
+      - pattern-not: $DB.$METHOD("...", ...)
+
+  - id: prisma-sql-raw-dynamic
+    languages: [typescript, javascript]
+    severity: WARNING
+    message: >-
+      Prisma.raw() insere o texto sem escape. Confirme que o valor não vem de entrada externa
+      ou troque por Prisma.sql com parâmetros.
+    metadata:
+      category: security
+      cwe: ["CWE-89: Improper Neutralization of Special Elements used in an SQL Command"]
+      owasp: ["A03:2021 - Injection"]
+      confidence: LOW
+    patterns:
+      - pattern: Prisma.raw($X)
+      - pattern-not: Prisma.raw("...")
+
