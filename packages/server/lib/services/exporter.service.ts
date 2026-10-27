@@ -2,7 +2,7 @@ import { generateRandomString } from "@kottster/common";
 import { DataSourceAdapter } from "../models/dataSourceAdapter.model";
 import { Readable } from "stream";
 import { Response } from 'express';
-import ExcelJS from 'exceljs';
+import { XlsxStreamWriter } from '../utils/xlsxStreamWriter';
 
 type DownloadParameters = Parameters<DataSourceAdapter['getTableRecordsStream']>;
 
@@ -228,8 +228,7 @@ export class Exporter {
   }
 
   public async convertToXLSX(stream: Readable, res: Response) {
-    const workbook = new ExcelJS.stream.xlsx.WorkbookWriter({ stream: res });
-    const sheet = workbook.addWorksheet('Data');
+    const workbook = new XlsxStreamWriter(res, 'Data');
 
     let isFirst = true;
     let headers: string[] = [];
@@ -241,28 +240,26 @@ export class Exporter {
         if (isFirst) {
           isFirst = false;
           headers = this.sortHeaders(Object.keys(flatRecord));
-          sheet.addRow(headers).commit();
+          workbook.addRow(headers);
         }
 
         const values = headers.map((header) => flatRecord[header]);
-        sheet.addRow(values).commit();
+        workbook.addRow(values);
       } catch (error) {
         console.error('Error writing XLSX row:', error);
       }
     });
 
-    stream.on('end', async () => {
-      await workbook.commit();
-      res.end();
+    stream.on('end', () => {
+      workbook.commit();
     });
 
-    stream.on('error', async (error) => {
+    stream.on('error', (error) => {
       console.error('Stream error:', error);
       if (!res.headersSent) {
         res.status(500).json({ error: 'Export failed' });
       } else {
-        await workbook.commit();
-        res.end();
+        workbook.commit();
       }
     });
   }

@@ -748,7 +748,7 @@ export abstract class DataSourceAdapter {
         if (relationship.targetTableForeignKeyColumn) {
           await Promise.all(
             foreignKeyValues.map(async keyValue => {
-              const recordForeignRecords = await this.client(relationship.targetTable)
+              const recordForeignRecords = await this.client(relationship.targetTable!)
                 .count({ count: '*' })
                 .where(relationship.targetTableForeignKeyColumn!, keyValue);
 
