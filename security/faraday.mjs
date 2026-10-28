@@ -135,7 +135,8 @@ function existingObject(node) {
 
 const targetStatus = (current, wanted) => {
   if (current === wanted) return null;
-  if (wanted === "open") return current === "closed" ? "re-opened" : null;
+  // Achado fechado ou com risco aceito que voltou a valer (decisão removida/alterada) é reaberto
+  if (wanted === "open") return current === "closed" || current === "risk-accepted" ? "re-opened" : null;
   return wanted;
 };
 

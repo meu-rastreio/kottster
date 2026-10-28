@@ -45,7 +45,8 @@ const SECRET_PATTERNS = [
   /\b[A-Za-z0-9+/_-]{40,}={0,2}/g,
 ];
 const SECRET_KEY = String.raw`(?:pass(?:word)?|pwd|secret|token|api[_-]?key|private[_-]?key|credential|auth)[A-Za-z0-9_]*["']?\s*[:=]\s*`;
-const QUOTED_ASSIGNMENT = new RegExp(`(${SECRET_KEY})(["'\`])([^"'\`\\n]{4,})\\2`, "gi");
+// O valor vai até a aspa que abriu (aceita aspas de outro tipo e caracteres escapados no meio)
+const QUOTED_ASSIGNMENT = new RegExp(`(${SECRET_KEY})(["'\`])((?:\\\\.|(?!\\2)[^\\\\\\n]){4,})\\2`, "gi");
 const UNQUOTED_ASSIGNMENT = new RegExp(`(${SECRET_KEY})(?!["'\`]|\\[REDACTED\\])([^\\s"'\`,;)}\\]]{4,})`, "gi");
 
 export function redact(text) {
