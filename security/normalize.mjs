@@ -45,15 +45,13 @@ const SECRET_PATTERNS = [
   /\b[A-Za-z0-9+/_-]{40,}={0,2}/g,
 ];
 const SECRET_KEY = String.raw`(?:pass(?:word)?|pwd|secret|token|api[_-]?key|private[_-]?key|credential|auth)[A-Za-z0-9_]*["']?\s*[:=]\s*`;
-// O valor vai até a aspa que abriu (aceita aspas de outro tipo e caracteres escapados no meio)
-const QUOTED_ASSIGNMENT = new RegExp(`(${SECRET_KEY})(["'\`])((?:\\\\.|(?!\\2)[^\\\\\\n]){4,})\\2`, "gi");
-const UNQUOTED_ASSIGNMENT = new RegExp(`(${SECRET_KEY})(?!["'\`]|\\[REDACTED\\])([^\\s"'\`,;)}\\]]{4,})`, "gi");
+// Linha com atribuição a um nome de credencial: mascara tudo depois do ":"/"=" até o fim da linha.
+// Não tenta interpretar aspas/escapes (cada linguagem tem regras diferentes); prefere mascarar a mais a vazar.
+const SECRET_ASSIGNMENT = new RegExp(`(${SECRET_KEY})[^\\n]*`, "gi");
 
 export function redact(text) {
   if (!text) return text;
-  let result = String(text)
-    .replace(QUOTED_ASSIGNMENT, (_, prefix, quote) => `${prefix}${quote}[REDACTED]${quote}`)
-    .replace(UNQUOTED_ASSIGNMENT, (_, prefix) => `${prefix}[REDACTED]`);
+  let result = String(text).replace(SECRET_ASSIGNMENT, (_, prefix) => `${prefix}[REDACTED]`);
   for (const pattern of SECRET_PATTERNS) result = result.replace(pattern, "[REDACTED]");
   return result;
 }
