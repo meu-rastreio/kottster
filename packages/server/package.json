@@ -76,6 +76,9 @@
     "better-sqlite3": "^12.x || ^13.x",
     "vite": "^6.x"
   },
+  "engines": {
+    "node": ">=22"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kottster/kottster.git"

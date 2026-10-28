@@ -10,7 +10,7 @@ This guide walks you through deploying your Kottster app from local development 
 
 Before deployment, ensure your environment meets these prerequisites:
 
-- [Node.js](https://nodejs.org/en) (version v20 or above)
+- [Node.js](https://nodejs.org/en) (version v22 or above)
 - [npm](https://www.npmjs.com/get-npm) (comes with Node.js) or any other preferred package manager
 
 ## Before you deploy

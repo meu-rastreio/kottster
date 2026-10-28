@@ -195,7 +195,7 @@ export class FileCreator {
         ...(options.devDependencies ?? {}),
       },
       engines: {
-        node: '>=20',
+        node: '>=22',
       },
       pnpm: options.pnpm || undefined,
     }

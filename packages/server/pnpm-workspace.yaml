@@ -4,3 +4,7 @@ allowBuilds:
   better-sqlite3: false
 packages:
   - .
+# Proteções de supply chain (pnpm 10+; o pnpm 9 do packageManager ignora estas chaves)
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
