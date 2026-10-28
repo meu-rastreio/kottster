@@ -42,7 +42,7 @@ Get a custom Node.js admin panel. Create pages to **view and manage data in your
 npx @kottster/cli@latest new
 ```
 
-> Make sure you have **Node.js (v20 or above)** installed on your system.
+> Make sure you have **Node.js (v22 or above)** installed on your system.
 
 Alternatively, you can use Docker to run Kottster. For more details, check out the [Docker Quickstart](https://kottster.app/docs/quickstart-docker).
 

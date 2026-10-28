@@ -10,7 +10,7 @@ description: "Create a Kottster project in minutes with the CLI. Start building 
 npx @kottster/cli@latest new
 ```
 
-Make sure you have [Node.js](https://nodejs.org/en) **(v20 or above)** installed on your system. 
+Make sure you have [Node.js](https://nodejs.org/en) **(v22 or above)** installed on your system. 
 
 After running the command, the CLI will create a [folder](./project-structure.md) with your project name and install the required dependencies. 
 If you want to create a project in a current folder, run `npx @kottster/cli new .` instead.

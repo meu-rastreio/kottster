@@ -174,7 +174,7 @@ export class FileCreator {
         'react': '^19.x',
         'react-dom': '^19.x',
         'react-router-dom': '^7.x',
-        'better-sqlite3': '^12.x',
+        'better-sqlite3': '^13.x',
 
         // Using exact same version as the CLI.
         // This ensures compatibility between the core packages
@@ -195,7 +195,7 @@ export class FileCreator {
         ...(options.devDependencies ?? {}),
       },
       engines: {
-        node: '>=20',
+        node: '>=22',
       },
       pnpm: options.pnpm || undefined,
     }

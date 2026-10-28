@@ -3,29 +3,33 @@
   "description": "Common types and utilities for Kottster",
   "version": "3.5.1",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "license": "Apache-2.0",
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "pnpm run clean && tsc",
+    "prepack": "pnpm run build",
     "lint": "npx eslint ./lib",
     "test": "jest",
     "prepare": "husky",
     "prepare-npm-package": "pnpm run test && pnpm run lint --fix && rimraf package-lock.json && pnpm run build"
   },
   "devDependencies": {
-    "@eslint/js": "^9.7.0",
-    "@jest/globals": "^30.2.0",
+    "@eslint/js": "^9.39.5",
+    "@jest/globals": "^30.5.2",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^30.0.0",
-    "@types/node": "^24.10.1",
-    "eslint": "^9.7.0",
-    "husky": "^9.1.1",
-    "jest": "^30.2.0",
-    "rimraf": "^6.1.2",
-    "synp": "^1.9.13",
-    "ts-jest": "^29.4.5",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^7.16.1"
+    "@types/node": "^24.19.2",
+    "eslint": "^9.39.5",
+    "husky": "^9.1.7",
+    "jest": "^30.5.2",
+    "rimraf": "^6.1.3",
+    "synp": "^1.9.14",
+    "ts-jest": "^29.4.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^7.18.0"
   },
   "repository": {
     "type": "git",
@@ -35,5 +39,10 @@
     "url": "https://github.com/kottster/kottster/issues"
   },
   "homepage": "https://kottster.app/",
-  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c",
+  "pnpm": {
+    "overrides": {
+      "lodash": "^4.18.1"
+    }
+  }
 }

@@ -1,0 +1,10 @@
+# Instalado a partir do git (pnpm 10+): o better-sqlite3 13 já traz binários prontos em prebuilds/,
+# então o node-gyp rebuild implícito (pelo binding.gyp) só atrasa ou quebra o install (ex.: alpine sem toolchain).
+allowBuilds:
+  better-sqlite3: false
+packages:
+  - .
+# Proteções de supply chain (pnpm 10+; o pnpm 9 do packageManager ignora estas chaves)
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade

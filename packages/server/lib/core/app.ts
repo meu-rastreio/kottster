@@ -359,7 +359,7 @@ export class KottsterApp {
         }
 
         const operationId = req.params.operationId;
-        if (!operationId) {
+        if (!operationId || typeof operationId !== 'string') {
           res.status(400).json({ error: 'Bad Request' });
           return;
         }
